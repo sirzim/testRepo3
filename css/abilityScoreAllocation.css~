@@ -1,0 +1,6 @@
+
+input.val
+input.mod {
+    text-align  : right;
+}
+

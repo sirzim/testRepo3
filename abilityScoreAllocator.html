@@ -1,0 +1,249 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <title>Ability Score Allocator</title>
+
+    <meta charset="utf-8">
+
+    <!-- Library: jQuery -->
+    <script type="text/javascript" src="lib/jquery/jquery.min.js" charset="utf-8"></script>
+
+    <!-- Library: Bootstrap -->
+    <script type="text/javascript" src="lib/bootstrap/js/bootstrap.min.js" charset="utf-8"></script>
+    <link rel="stylesheet" type="text/css" href="lib/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="lib/bootstrap/css/bootstrap-theme.min.css" />
+
+    <!-- Javascript -->
+    <script type="text/javascript" src="js/abilityScoreAllocator.js"></script>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/abilityScoreAllocator.css" />
+
+</head>
+
+<body>
+
+    <div class="container-fluid">
+
+<!-- TODO Debugging Aide
+        <div class="row">
+            <div class="col-md-12">
+                <label>Test Div: </label>
+                <label id="testDiv">1</label>
+            </div>
+        </div>
+-->
+
+        <!-- Ability Score Points Counter -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="col-md-2 text-right">
+                    <label>Points: </label>
+                </div>
+                <div class="col-md-10">
+                    <label id="labelPoints"></label>
+                </div>
+            </div>
+        </div>
+
+        <!-- Ability Score Allocator (Raw) -->
+        <div class="row">
+            <div class="col-md-6">
+        <div class="row">
+            <div class="col-md-12">
+                <form id="formStr" role="form" class="form-inline">
+                    <div class="col-md-1 text-right">
+                        <label  id="labelStr">Str</label>
+                    </div>
+                    <div class="col-md-11">
+                        <button id="buttonStrMinus" type="button" class="btn btn-xs btn-danger" onclick="abilityScoreDecrement('Str')">&#xff0d;</button>
+                        <input  id="inputStrVal"    type="text" size="1" class="abilityScoreVal"></input>
+                        <input  id="inputStrMod"    type="text" size="1" class="abilityScoreMod"></input>
+                        <button id="buttonStrPlus"  type="button" class="btn btn-xs btn-success btn-arrow-right" onclick="abilityScoreIncrement('Str')">&#xff0b;</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <form id="formDex" role="form" class="form-inline">
+                    <div class="col-md-1 text-right">
+                        <label  id="labelDex"       >Dex</label>
+                    </div>
+                    <div class="col-md-11">
+                        <button id="buttonDexMinus" type="button" class="btn btn-xs btn-danger" onclick="abilityScoreDecrement('Dex')">&#xff0d;</button>
+                        <input  id="inputDexVal"    type="text" size="1" class="abilityScoreVal"></input>
+                        <input  id="inputDexMod"    type="text" size="1" class="abilityScoreMod"></input>
+                        <button id="buttonDexPlus"  type="button" class="btn btn-xs btn-success" onclick="abilityScoreIncrement('Dex')">&#xff0b;</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <form id="formCon" role="form" class="form-inline">
+                    <div class="col-md-1 text-right">
+                        <label  id="labelCon"       >Con</label>
+                    </div>
+                    <div class="col-md-11">
+                        <button id="buttonConMinus" type="button" class="btn btn-xs btn-danger" onclick="abilityScoreDecrement('Con')">&#xff0d;</button>
+                        <input  id="inputConVal"    type="text" size="1" class="abilityScoreVal"></input>
+                        <input  id="inputConMod"    type="text" size="1" class="abilityScoreMod"></input>
+                        <button id="buttonConPlus"  type="button" class="btn btn-xs btn-success" onclick="abilityScoreIncrement('Con')">&#xff0b;</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <form id="formInt" role="form" class="form-inline">
+                    <div class="col-md-1 text-right">
+                        <label  id="labelInt"       >Int</label>
+                    </div>
+                    <div class="col-md-11">
+                        <button id="buttonIntMinus" type="button" class="btn btn-xs btn-danger" onclick="abilityScoreDecrement('Int')">&#xff0d;</button>
+                        <input  id="inputIntVal"    type="text" size="1" class="abilityScoreVal"></input>
+                        <input  id="inputIntMod"    type="text" size="1" class="abilityScoreMod"></input>
+                        <button id="buttonIntPlus"  type="button" class="btn btn-xs btn-success" onclick="abilityScoreIncrement('Int')">&#xff0b;</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <form id="formWis" role="form" class="form-inline">
+                    <div class="col-md-1 text-right">
+                        <label  id="labelWis"       >Wis</label>
+                    </div>
+                    <div class="col-md-11">
+                        <button id="buttonWisMinus" type="button" class="btn btn-xs btn-danger" onclick="abilityScoreDecrement('Wis')">&#xff0d;</button>
+                        <input  id="inputWisVal"    type="text" size="1" class="abilityScoreVal"></input>
+                        <input  id="inputWisMod"    type="text" size="1" class="abilityScoreMod"></input>
+                        <button id="buttonWisPlus"  type="button" class="btn btn-xs btn-success" onclick="abilityScoreIncrement('Wis')">&#xff0b;</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <form id="formCha" role="form" class="form-inline">
+                    <div class="col-md-1 text-right">
+                        <label  id="labelCha"       >Cha</label>
+                    </div>
+                    <div class="col-md-11">
+                        <button id="buttonChaMinus" type="button" class="btn btn-xs btn-danger" onclick="abilityScoreDecrement('Cha')">&#xff0d;</button>
+                        <input  id="inputChaVal"    type="text" size="1" class="abilityScoreVal"></input>
+                        <input  id="inputChaMod"    type="text" size="1" class="abilityScoreMod"></input>
+                        <button id="buttonChaPlus"  type="button" class="btn btn-xs btn-success" onclick="abilityScoreIncrement('Cha')">&#xff0b;</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+            </div>
+
+        <!-- Race Selector -->
+        
+
+        <!-- Ability Score Allocator (After Race) -->
+            <div class="col-md-6">
+        <div class="row">
+            <div class="col-md-12">
+                <form id="formStr" role="form" class="form-inline">
+                    <div class="col-md-1 text-right">
+                        <label  id="labelStr">Str</label>
+                    </div>
+                    <div class="col-md-11">
+                        <button id="buttonStrMinus" type="button" class="btn btn-xs btn-danger" onclick="abilityScoreDecrement('Str')">&#xff0d;</button>
+                        <input  id="inputStrVal"    type="text" size="1" class="abilityScoreVal"></input>
+                        <input  id="inputStrMod"    type="text" size="1" class="abilityScoreMod"></input>
+                        <button id="buttonStrPlus"  type="button" class="btn btn-xs btn-success btn-arrow-right" onclick="abilityScoreIncrement('Str')">&#xff0b;</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <form id="formDex" role="form" class="form-inline">
+                    <div class="col-md-1 text-right">
+                        <label  id="labelDex"       >Dex</label>
+                    </div>
+                    <div class="col-md-11">
+                        <button id="buttonDexMinus" type="button" class="btn btn-xs btn-danger" onclick="abilityScoreDecrement('Dex')">&#xff0d;</button>
+                        <input  id="inputDexVal"    type="text" size="1" class="abilityScoreVal"></input>
+                        <input  id="inputDexMod"    type="text" size="1" class="abilityScoreMod"></input>
+                        <button id="buttonDexPlus"  type="button" class="btn btn-xs btn-success" onclick="abilityScoreIncrement('Dex')">&#xff0b;</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <form id="formCon" role="form" class="form-inline">
+                    <div class="col-md-1 text-right">
+                        <label  id="labelCon"       >Con</label>
+                    </div>
+                    <div class="col-md-11">
+                        <button id="buttonConMinus" type="button" class="btn btn-xs btn-danger" onclick="abilityScoreDecrement('Con')">&#xff0d;</button>
+                        <input  id="inputConVal"    type="text" size="1" class="abilityScoreVal"></input>
+                        <input  id="inputConMod"    type="text" size="1" class="abilityScoreMod"></input>
+                        <button id="buttonConPlus"  type="button" class="btn btn-xs btn-success" onclick="abilityScoreIncrement('Con')">&#xff0b;</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <form id="formInt" role="form" class="form-inline">
+                    <div class="col-md-1 text-right">
+                        <label  id="labelInt"       >Int</label>
+                    </div>
+                    <div class="col-md-11">
+                        <button id="buttonIntMinus" type="button" class="btn btn-xs btn-danger" onclick="abilityScoreDecrement('Int')">&#xff0d;</button>
+                        <input  id="inputIntVal"    type="text" size="1" class="abilityScoreVal"></input>
+                        <input  id="inputIntMod"    type="text" size="1" class="abilityScoreMod"></input>
+                        <button id="buttonIntPlus"  type="button" class="btn btn-xs btn-success" onclick="abilityScoreIncrement('Int')">&#xff0b;</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <form id="formWis" role="form" class="form-inline">
+                    <div class="col-md-1 text-right">
+                        <label  id="labelWis"       >Wis</label>
+                    </div>
+                    <div class="col-md-11">
+                        <button id="buttonWisMinus" type="button" class="btn btn-xs btn-danger" onclick="abilityScoreDecrement('Wis')">&#xff0d;</button>
+                        <input  id="inputWisVal"    type="text" size="1" class="abilityScoreVal"></input>
+                        <input  id="inputWisMod"    type="text" size="1" class="abilityScoreMod"></input>
+                        <button id="buttonWisPlus"  type="button" class="btn btn-xs btn-success" onclick="abilityScoreIncrement('Wis')">&#xff0b;</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <form id="formCha" role="form" class="form-inline">
+                    <div class="col-md-1 text-right">
+                        <label  id="labelCha"       >Cha</label>
+                    </div>
+                    <div class="col-md-11">
+                        <button id="buttonChaMinus" type="button" class="btn btn-xs btn-danger" onclick="abilityScoreDecrement('Cha')">&#xff0d;</button>
+                        <input  id="inputChaVal"    type="text" size="1" class="abilityScoreVal"></input>
+                        <input  id="inputChaMod"    type="text" size="1" class="abilityScoreMod"></input>
+                        <button id="buttonChaPlus"  type="button" class="btn btn-xs btn-success" onclick="abilityScoreIncrement('Cha')">&#xff0b;</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+
